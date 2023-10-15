@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter} from "react-router-dom";
- 
-import Moviedet from './moviedet';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import './index.css';
 import App from './App';
+import Login from './login';
+import MediaCard from './test';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <Router>
+  <Routes>
+    <Route exact path="/" element={<Login />} />
+    <Route path="/App" element={<App />} />
+    <Route path="/test" element={<MediaCard />} />
+  </Routes>
+</Router>
   
 );
 

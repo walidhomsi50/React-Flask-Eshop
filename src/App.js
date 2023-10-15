@@ -1,73 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import MovieCard from './moviecard';
-import searchIcon from './assets/icons/icons8-search.svg'
-import './App.css';
-//c6211840
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
 
-
-
-
-function App() {
-  const [movies, setMovies] = useState([]);
-  const [searchTerm,setSearchTerm]=useState('');
-  const Api_Url = 'http://www.omdbapi.com/?i=tt3896198&apikey=c6211840';
-  const fetchMovies = async (title) => {
-    try{
-    const response = await fetch(`${Api_Url}&s=${title}`);
-    const data = await response.json();
-    setMovies(data.Search);
-    }catch(exception){
-      <h1>error while retrieving data</h1>
-    }
-  }
+const App = () => {
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetchMovies();
-
+    axios
+      .get("http://127.0.0.1:5000/api/data")
+      .then((res) => setProducts(res.data.data));
   }, []);
-useState('');
-  console.log(movies);
 
-  return (
-    <div>
-   
-    <div className="App">
-      <h1>Movies World</h1>
-      <div className='search'>
+  console.log(products);
 
-        <input
-          placeholder='search for movies'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+  const searchProduct = products.filter((product) => {
+    return Object.keys(product).some((key) =>
+      product[key]
+        .toString()
+        .toLowerCase()
+        .includes(search.toString().toLowerCase())
+    );
+  });
+
+  const Truncate = (string, number) => {
+    if (!string) {
+      return null;
+    }
+    if (string.length <= number) {
+      return string;
+    }
+    return string.slice(0, number) + "...";
+  };
+
+  return  <>
+    {products.map((item,key)=>
+     <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image="/static/images/cards/contemplative-reptile.jpg"
+          alt="green iguana"
         />
-        <span className='search-icon'>
-        <img src={searchIcon} onClick={()=>fetchMovies(searchTerm)} alt='movie img'/>
-       </span>
-      </div>
-
-      { movies?.length > 0 ? (
-          <div className='container'>
-
-            {movies.map((movie)=>(
-              <MovieCard  movie={movie}/>
-            ))} 
-          </div>
-
-
-        ) : (
-          <div className='empty'>
-            <h2>No matches found!!</h2>
-          </div>
-        )
-
-        }
-    </div>
-    
-    </div>
-    
-    
-  );
-}
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {item.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {item.price}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Add to Cart
+        </Button>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+      </CardActions>
+    </Card>
+)}
+    </>
+  
+};
 
 export default App;
