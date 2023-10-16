@@ -1,6 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask
+from flask import jsonify
 
 from flask_cors import CORS
+
 import sqlite3
 
 

@@ -45,8 +45,8 @@ const App = () => {
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          img={item.photo}
+          alt="item image"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
