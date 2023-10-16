@@ -45,7 +45,7 @@ const App = () => {
         <CardMedia
           component="img"
           height="140"
-          img={item.photo}
+          src={`data:image/jpg;base64, ${item.photo}`}
           alt="item image"
         />
         <CardContent>

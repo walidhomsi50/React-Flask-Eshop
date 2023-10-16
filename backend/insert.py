@@ -36,12 +36,24 @@ c=conn.cursor()
 
 #insertBLOB(35, "jean", "blue", "10" ,"100$", "C:\\Users\walid\Documents\\flask\React-with-Flask\images\\jeans.jpg")
 #insertBLOB(36, "jeans","blue","9" , "100$", "C:\\Users\walid\Documents\\flask\React-with-Flask\images\\jeans.jpg")
+#table = """ CREATE TABLE users (
+       #     productId integer NOT NULL Primary key ,
+        #    name CHAR(25) NOT NULL,
+         #   size CHAR(25),
+          #  price integer NOT NULL,
+           # quantity integer,
+            #productPhoto BLOB
+            
+        #); """
+
+#c.execute(table)
+ 
+#print("Table is Ready")
 
 
+c.execute("SELECT * FROM products")
 
-c.execute("SELECT * FROM items")
-
-#print(c.fetchall())
+print(c.fetchall())
 conn.commit()
 
 conn.close()

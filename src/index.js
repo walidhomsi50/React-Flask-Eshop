@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Login from './login';
-import MediaCard from './test';
+
+import Register from './Register';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,8 +14,9 @@ root.render(
   <Router>
   <Routes>
     <Route exact path="/" element={<Login />} />
+    <Route path="/Register" element={<Register />} />
     <Route path="/App" element={<App />} />
-    <Route path="/test" element={<MediaCard />} />
+  
   </Routes>
 </Router>
   
